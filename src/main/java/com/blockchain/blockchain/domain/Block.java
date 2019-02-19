@@ -1,5 +1,9 @@
 package com.blockchain.blockchain.domain;
 
+import com.blockchain.blockchain.utility.StringUtil;
+
+import java.util.Date;
+
 public class Block {
     public String hash;
     public String previousHash;
@@ -11,5 +15,10 @@ public class Block {
         this.data = data;
         this.previousHash = previousHash;
         this.timeStamp = new Date().getTime();
+        this.hash = calculateHash();
+    }
+
+    public String calculateHash() {
+        return StringUtil.applySha256(this.previousHash + Long.toString(this.timeStamp) + this.data);
     }
 }
